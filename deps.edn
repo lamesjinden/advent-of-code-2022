@@ -1,0 +1,6 @@
+{:deps {org.clojure/clojure            {:mvn/version "1.11.1"}
+        org.clojure/math.combinatorics {:mvn/version "0.1.6"}
+        org.clojure/core.async         {:mvn/version "1.6.673"}
+        org.clojure/core.specs.alpha   {:mvn/version "0.2.62"}
+        instaparse/instaparse          {:mvn/version "1.4.12"}
+        net.mikera/core.matrix         {:mvn/version "0.62.0"}}}
