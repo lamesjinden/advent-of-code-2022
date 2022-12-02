@@ -15,7 +15,7 @@
                    (map (fn [s] (Integer/parseInt s)))
                    (reduce +))))
        (sort)
-       (last))
+       (last)) ; 71502
 
   (->> (slurp day01-input-path)
        (util/split-on-newline)
@@ -26,6 +26,6 @@
        (sort)
        (reverse)
        (take 3)
-       (reduce +))
+       (reduce +)) ; 208191
 
   )
