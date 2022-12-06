@@ -1,6 +1,17 @@
 (ns aoc.util
   (:require [clojure.string :as str]
-            [clojure.core.matrix :as m]))
+            [clojure.core.matrix :as m])
+  (:import (java.util.regex Pattern)))
+
+(defn ->int
+  "parses s to Integer"
+  [s]
+  (Integer/parseInt s))
+
+(defn ->double
+  "parses s to Double"
+  [s]
+  (Double/parseDouble s))
 
 (defn flip-lr
   "returns the result of flipping m horizontally"
@@ -83,7 +94,10 @@
   "Returns a lazy sequence of successive items from coll until
   (pred item) returns true, including that item. pred must be
   free of side-effects. Returns a transducer when no collection
-  is provided."
+  is provided.
+
+  [provided via Clojure project JIRA; non-mainlined patch]
+  "
   ([pred]
    (fn [rf]
      (fn
@@ -99,3 +113,26 @@
        (if (pred (first s))
          (cons (first s) nil)
          (cons (first s) (take-until pred (rest s))))))))
+
+(defn drop-nil
+  "returns a lazy seq containing the non-nil elements of coll"
+  [coll]
+  (filter #(not (nil? %)) coll))
+
+(defn split
+  "invokes clojure.string/split with s an re. optionally, excludes
+  instances of the empty string from the result of the split invocation.
+
+  option: limit - defaults to nil
+  option: remove-empty - defaults to false
+  "
+  [^CharSequence s ^Pattern re & {:keys [limit remove-empty]
+                                  :or   {limit        nil
+                                         remove-empty false}
+                                  :as   options}]
+  (let [tokens (if (nil? limit)
+                 (clojure.string/split s re)
+                 (clojure.string/split s re limit))]
+    (if remove-empty
+      (filter #(not= "" %) tokens)
+      tokens)))
