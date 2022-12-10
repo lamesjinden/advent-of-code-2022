@@ -79,6 +79,17 @@
           col (range cols)]
       [row col])))
 
+(defn coords-2d-columnar
+  "returns a lazy sequence of all possible x,y pairs representing
+  locations within grid. pairs are represented as vectors of 2 elements
+  (e.g. [<ROW> <COLUMN>])"
+  [grid]
+  (let [rows (count grid)
+        cols (count (first grid))]
+    (for [col (range cols)
+          row (range rows)]
+      [row col])))
+
 (defn count-by
   "returns a map of the counts of the elements of coll keyed by the result
   of f on each element. similar to group-by where values are counts of
@@ -136,3 +147,21 @@
     (if remove-empty
       (filter #(not= "" %) tokens)
       tokens)))
+
+(defn re-get-named-group [^Pattern re s ^String group-name & group-names]
+  (when-let [match (re-matcher re s)]
+    (if (.find match)
+      (let [keys (cons group-name group-names)]
+        (->> keys
+             (map (fn [^String x] [x (.group match x)]))
+             (into {})))
+      nil)))
+
+(defn re-get-group [^Pattern re s ^String ^Integer group-index & group-indices]
+  (when-let [match (re-matcher re s)]
+    (if (.find match)
+      (let [keys (cons group-index group-indices)]
+        (->> keys
+             (map (fn [^Integer x] [x (.group match x)]))
+             (into {})))
+      nil)))
