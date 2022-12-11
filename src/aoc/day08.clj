@@ -52,12 +52,10 @@
                          (map (fn [[row col]] (get-in grid [row col])))
                          (util/take-until (fn [neighboring-value]
                                             (or (nil? neighboring-value)
-                                                (<= value neighboring-value)))))
-        score (->> (list coords-left coords-right coords-up coords-down)
-                   (map count)
-                   (reduce *))]
-    score)
-  )
+                                                (<= value neighboring-value)))))]
+    (->> (list coords-left coords-right coords-up coords-down)
+         (map count)
+         (reduce *))))
 
 (comment
 
