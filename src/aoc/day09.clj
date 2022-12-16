@@ -142,6 +142,8 @@ U 20")
 
 ;;; Part 2
 
+(def default-knot-count 10)
+
 (defn- simulate-intermediate-step-p2 [direction state]
   ;; bootstrap movement of the head position
   (let [[head-id {head-coords :coords}] (first state)
@@ -170,8 +172,8 @@ U 20")
                  (simulate-intermediate-step-p2 direction state))
                state)))
 
-(defn simulate-motions-p2 [starting-coordinates instructions]
-  (let [state (->> (range 0 10)
+(defn simulate-motions-p2 [starting-coordinates knot-count instructions]
+  (let [state (->> (range 0 knot-count)
                    (map (fn [i]
                           {i {:coords    starting-coordinates
                               :locations #{}}}))
@@ -191,7 +193,7 @@ U 20")
 
   ;2471
   (let [instructions (parse-instructions (slurp input-path))
-        simulated-state (simulate-motions-p2 default-starting-coordinates instructions)]
+        simulated-state (simulate-motions-p2 default-starting-coordinates default-knot-count instructions)]
     (as-> (keys simulated-state) $
           (last $)
           (get-in simulated-state [$ :locations])

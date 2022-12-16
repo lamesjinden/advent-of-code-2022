@@ -3,4 +3,6 @@
         org.clojure/core.async         {:mvn/version "1.6.673"}
         org.clojure/core.specs.alpha   {:mvn/version "0.2.62"}
         instaparse/instaparse          {:mvn/version "1.4.12"}
-        net.mikera/core.matrix         {:mvn/version "0.62.0"}}}
+        net.mikera/core.matrix         {:mvn/version "0.62.0"}
+        com.github.pjstadig/deque-clojure {:deps/manifest :deps
+                                           :git/sha "74b10029072d3dace83bf661744b558c5913670d"}}}
